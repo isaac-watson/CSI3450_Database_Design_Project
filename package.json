@@ -1,0 +1,19 @@
+{
+  "name": "test_express",
+  "version": "1.0.0",
+  "description": "test express web server",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap-select": "^1.13.3",
+    "bootstrap-slider": "^10.3.2",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "php-express": "0.0.3"
+  }
+}
