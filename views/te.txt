@@ -1,0 +1,70 @@
+ <!-- <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "root";
+        $dbname = "finaldb"; 
+        
+        
+        
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+      
+
+        if(isset($_POST['button_add_listing'])) {
+
+            $realtor_id = 245310;
+            $realtor_fname = "A";
+            $realtor_lname = "B";
+            $realtor_initial = "C";
+            $realtor_email = "abc@ccc.com";
+            $realtor_phone = 2387551337;
+            
+            $conn->query("insert into realtor values($realtor_id, '$realtor_lname', '$realtor_initial' ,'$realtor_fname', $realtor_phone ,'$realtor_email')");
+           
+            $htype_name = $_POST["htype_name"];
+            $hstyle_name = $_POST["hstyle_name"];
+            $street_num = $_POST["street_num"];
+            $street_name = $_POST["street_name"];
+            $city_name = $_POST["city_name"];
+            $zip = $_POST["zip"];
+            $lot_size = $_POST["lot_size"];
+            $basement = $_POST["basement"];
+            $bed_num = $_POST["bed_num"];
+            $bath_num = $_POST["bath_num"];
+            $floor_num = $_POST["floor_num"];
+            $dwell_size = $_POST["dwell_size"];
+            $unit = $_POST["unit"];
+            $year_built = $_POST["year_built"];
+            $stype_name = $_POST["stype_name"];
+            $price = $_POST["price"];
+            $realtor_fname = $_POST["realtor_fname"];
+            $realtor_lname = $_POST["realtor_lname"];
+            $realtor_init = $_POST["realtor_init"];
+            $realtor_email = $_POST["realtor_email"];
+            $realtor_phone = $_POST["realtor_phone"]; 
+            
+            
+
+            $conn->query("set @lot_next_id =(select max(lot_id) + 1 from lot)");
+           
+            $conn->query("insert into lot (lot_id, address_id, lot_size) 
+            values(@lot_next_id, (select address_id from address where (street_num = $street_num) & (street_name like '$street_name') & (zip = $zip)), $lot_size )");
+
+           
+
+            $conn->query("set @dwell_next_id = (select max(dwell_id) + 1 from dwelling)");
+            $conn->query("insert into dwelling values(@dwell_next_id, @lot_next_id, '$unit', (select htype_id from home_type where htype_name like '$htype_name'),
+             (select hstyle_id from home_style where hstyle_name like '$hstyle_name'), $dwell_size, $floor_num, $basement, $bath_num, $bed_num, $year_built)");
+            $conn->query("set @real_next_id = (select max(realtor_id) + 1 from realtor);");
+            $conn->query("insert into realtor select @real_next_id, '$realtor_lname', '$realtor_init', '$realtor_fname', $realtor_phone, '$realtor_email' from dual where 
+            not exists (select * from realtor where (realtor_lname like '$realtor_lname') & (realtor_fname like '$realtor_fname') & (realtor_email like '$realtor_email'))");
+            $conn->query("set @list_next_id = (select max(list_id) + 1 from listing)");
+            $conn->query("insert into listing values(@list_next_id, @dwell_next_id, (select stype_id from sale_type where stype_name = '$stype_name'), 
+            $price, @real_next_id, curdate(), curdate(), date_add(curdate(), interval 99 year))"); 
+        }*/
+
+        //$conn->close();
+        ?> -->
