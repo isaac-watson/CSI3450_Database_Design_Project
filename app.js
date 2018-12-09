@@ -1,3 +1,10 @@
+/**
+ * app.js
+ * The main js class looked for to run the express web server with the node command.
+ * Establishes the app module dependencies and express routes for the url in the browser as well as path names in the project.
+ * Opens the webserver at localhost on port 3000
+ * 
+ */
 var express = require("express");
 var app = express();
 //var db = require("./db_connection.js");
@@ -23,15 +30,6 @@ app.get("/about",function(req,res){
 
 app.get("/sell.php",function(req,res){
     res.sendFile(path + "sell.php");
-    //db.query('SELECT htype_name FROM home_type', function(err, result) {
-        //if(err) throw err;
-        //console.log(result);
-        
-    //});
-    //db.query('SELECT hstyle_name FROM home_style', function(err, result) {
-        //if(err) throw err;
-        //console.log(result);
-    //});
 });
 
 app.get("/browse.php",function(req,res){

@@ -4,7 +4,7 @@
         <title>CSI3450 Website</title>
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<!--Gets css stylesheets from cdn-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="css/styles.css">
         <script src="js/bootstrap-slider.js"></script>
@@ -54,9 +54,6 @@
      die("Connection failed: " . $conn->connect_error);
  }
 
-/*if(isset($_POST['button_add_listing'])) {
-
-}*/
 $conn->close();
 ?>
             <div class="row">
@@ -76,7 +73,7 @@ $conn->close();
  
                         <div class="form-group">
                             <label for="htype_name">Home Type:</label>
-    
+                        <!-- Populating drop down with home type possibilities from database -->
                             <?php   
                                 $servername = "localhost";
                                 $username = "root";
@@ -93,7 +90,11 @@ $conn->close();
                                 $result = $conn->query($sql);
                                 echo "<select class='form-control' id='htype_name' name='htype_name'>";
                                 while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='{".$row['htype_name']."}'>".$row['htype_name']."</option>";
+                                
+                                        if($row['htype_name'] != "Any"){
+                                            echo "<option value='".$row['htype_name']."'>".$row['htype_name']."</option>";
+                                        }
+                                    
                                 }
                                 echo "</select>";
                                 $conn->close();
@@ -108,7 +109,7 @@ $conn->close();
                     
                         <div class="form-group">
                             <label for="hstyle_name">Home Style:</label>
-                            
+                            <!-- Populating drop down with home style possibilities from database -->
                             <?php   
                                 $servername = "localhost";
                                 $username = "root";
@@ -125,7 +126,10 @@ $conn->close();
                                 $result = $conn->query($sql);
                                 echo "<select class='form-control' id='hstyle_name' name='hstyle_name'>";
                                 while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='{".$row['hstyle_name']."}'>".$row['hstyle_name']."</option>";
+                                    if($row['hstyle_name'] != "Any"){
+                                        echo "<option value='".$row['hstyle_name']."'>".$row['hstyle_name']."</option>";
+                                    }
+                                    
                                 }
                                 echo "</select>";
                                 $conn->close();
@@ -135,6 +139,7 @@ $conn->close();
                     
                     
                 </div>
+                <!-- Test code for populating drop down with loop -->
                <!--   var select = document.getElementById("hstyle_name");
                                     var array = ["html","css"];
                                     for(var i = 0; i < array.length; i++) {
@@ -162,6 +167,7 @@ $conn->close();
                                     <input type="text" class="form-control" id="street_name" name="street_name" placeholder="Main St">
                             </div>
                             <div class="form-group">
+                                <!-- Populating drop down with city name possibilities from database -->
                                 <?php   
                                     $servername = "localhost";
                                     $username = "root";
@@ -185,7 +191,7 @@ $conn->close();
                                                 $result = $conn->query($sql);
                                                 
                                                 while ($row = $result->fetch_assoc()) {
-                                                    echo "<option value='{".$row['city_name']."}'>".$row['city_name']."</option>";
+                                                    echo "<option value='".$row['city_name']."'>".$row['city_name']."</option>";
                                                 }
                                                     
                                                     $conn->close();
@@ -203,7 +209,7 @@ $conn->close();
 
                             <div class="form-group">
                                     <label for="lot_size">Lot Size</label>
-                                    <input type="text" class="form-control" id="lot_size" name="lot_size" placeholder="1000 Square feet">
+                                    <input type="text" class="form-control" id="lot_size" name="lot_size" placeholder="2 (Acres)">
                             </div>
                         
                     </div>
@@ -216,21 +222,21 @@ $conn->close();
                     <label>Basement</label>
                         
                             <div class="form-check form-check-inline">
-                                
+                                <!-- radio buttons and setting default checked option as no -->
                                 <input class="form-check-input" type="radio" name="basement" id="dwell_basement_true" value="1">
                                 <label class="form-check-label" for="dwell_basement_true">Yes</label>
                             </div>
                                 <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="basement" id="dwell_basement_false" value="0">
+                                <input class="form-check-input" type="radio" name="basement" id="dwell_basement_false" value="0" checked>
                                 <label class="form-check-label" for="dwell_basement_false">No</label>
                             </div>
                         
                     </div>
                     <br>
                     <div class="col">
-                           
+            <!--These values are hard coded in because it is unlikely for them to go beyond these values -->               
                                 <div class="form-group">
-                                    <label for="bed_num">Number of Beds:</label>
+                                    <label for="bed_num">Number of Bedrooms:</label>
                                     <select class="form-control" id="bed_num" name="bed_num">
                                         <option>1</option>
                                         <option>2</option>
@@ -242,7 +248,7 @@ $conn->close();
                             
                         </div>
                         <div class="col">
-                               
+                               <!-- Some bathrooms don't have a shower so it is half  -->
                                     <div class="form-group">
                                         <label for="bath_num">Number of Bathrooms:</label>
                                         <select class="form-control" id="bath_num" name="bath_num">
@@ -274,7 +280,7 @@ $conn->close();
                                         
                                             <div class="form-group">
                                                     <label for="dwell_size">Dwell Size</label>
-                                                    <input type="text" class="form-control" id="dwell_size" placeholder="10 Acres" name="dwell_size">
+                                                    <input type="text" class="form-control" id="dwell_size" placeholder="1000 (sqft.)" name="dwell_size">
                                             </div>
                                             <div class="form-group">
                                                     <label for="unit">Unit Number</label>
@@ -286,6 +292,7 @@ $conn->close();
                                                     <label for="year_built">Year Built: <span id="demo"></span></label>
                                                         <input type="range" class="form-control-range" id="year_built" name="year_built" min="1776" value="1776" max="2018">
                                                     </div>
+                                                    <!-- Javascript code to set and view the value of the year built slider -->
                                                     <script>
                                                         var slider = document.getElementById("year_built");
                                                         var output = document.getElementById("demo");
@@ -307,7 +314,7 @@ $conn->close();
                     <h4>Sale Type</h4>
                 
                 <div class="col">
-                        
+                        <!-- Populating drop down with sale type possibilities from database -->
                             <div class="form-group">
                             <?php   
                                 $servername = "localhost";
@@ -328,7 +335,7 @@ $conn->close();
                                     $result = $conn->query($sql);
                                     
                                     while ($row = $result->fetch_assoc()) {
-                                        echo "<option value='{".$row['stype_name']."}'>".$row['stype_name']."</option>";
+                                        echo "<option value='".$row['stype_name']."'>".$row['stype_name']."</option>";
                                     }
                                         
                                         $conn->close();
@@ -392,7 +399,7 @@ $conn->close();
             <br>
 <!--End of container-->
         </div> 
-       
+       <!--Gets bootstrap javascript resources from CDN-->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

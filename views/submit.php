@@ -13,6 +13,9 @@
  }
 //print_r($_GET);
 //var_dump($GLOBALS);
+
+//if the button with the name tag of button_add_listing (located in sell.php) is clicked,
+//then set these variables to the values that was grabbed from the databose from the GET method
  if(isset($_GET['button_add_listing'])) {
     echo("check2");
     $htype_name = $_GET["htype_name"];
@@ -37,27 +40,31 @@
     $realtor_email = $_GET["realtor_email"];
     $realtor_phone = $_GET["realtor_phone"]; 
     
+    
   
 
-    $conn->query("set @lot_next_id =(select max(lot_id) + 1 from lot)");
+    $conn->query("set @lot_next_id :=(select max(lot_id) + 1 from lot);");
 
-    $conn->query("insert into lot (lot_id, address_id, lot_size) 
-    values(@lot_next_id, (select address_id from address where (street_num = '$street_num') & (street_name like '$street_name') & (zip = $zip) limit 1), $lot_size )");
+    $conn->query("insert into lot (lot_id, address_id, lot_size) values(@lot_next_id, (select address_id from address where (street_num = '$street_num') 
+    & (street_name like concat('%','$street_name','%')) & (zip = $zip) limit 1), $lot_size )");
 
-    $conn->query("set @dwell_next_id = (select max(dwell_id) + 1 from dwelling)");
+    $conn->query("set @dwell_next_id := (select max(dwell_id) + 1 from dwelling)");
 
-   $conn->query("insert into dwelling values(@dwell_next_id, @lot_next_id, '$unit', (select htype_id from home_type where htype_name like '%$htype_name%' limit 1),
-    (select hstyle_id from home_style where hstyle_name like '%$hstyle_name%' limit 1), $dwell_size, $floor_num, $basement, $bath_num, $bed_num, $year_built)");
+   $conn->query("insert into dwelling values(@dwell_next_id, @lot_next_id, '$unit',
+    (select htype_id from home_type where htype_name like '$htype_name'), (select hstyle_id from home_style where hstyle_name like '$hstyle_name'), 
+   $dwell_size, $floor_num, $basement, $bath_num, $bed_num, $year_built)");
 
-    $conn->query("set @real_next_id = (select max(realtor_id) + 1 from realtor);");
+    $conn->query("set @real_next_id := (select max(realtor_id) + 1 from realtor)");
 
-    $conn->query("insert into realtor select @real_next_id, '$realtor_lname', '$realtor_init', '$realtor_fname', $realtor_phone, '$realtor_email' from dual where 
-    not exists (select * from realtor where (realtor_lname like '$realtor_lname') & (realtor_fname like '$realtor_fname') & (realtor_email like '$realtor_email'))");
+    $conn->query("insert into realtor select @real_next_id, 
+    '$realtor_lname', '$realtor_init', '$realtor_fname', '$realtor_phone', '$realtor_email' from dual where 
+    not exists (select * from realtor where (realtor_lname like '$realtor_lname') & (realtor_fname like '$realtor_fname') & 
+    (realtor_email like '$realtor_email'))");
 
-    $conn->query("set @list_next_id = (select max(list_id) + 1 from listing)");
+    $conn->query("set @list_next_id := (select max(list_id) + 1 from listing)");
 
-    $conn->query("insert into listing values(@list_next_id, @dwell_next_id, (select stype_id from sale_type where stype_name = '$stype_name' limit 1), 
-    $price, @real_next_id, curdate(), curdate(), date_add(curdate(), interval 99 year))");
+    $conn->query("insert into listing values(@list_next_id, @dwell_next_id, (select stype_id from sale_type where stype_name = '$stype_name'), 
+    '$price', @real_next_id, curdate(), curdate(), date_add(curdate(), interval 99 year))");
  }
 
 $conn->close();
