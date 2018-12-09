@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+    browse.php
+        Filters page. The user will select from various filters and input values to filter out the listings.
+        Once the filters are selected, the Apply Filters button will load Listings.php
+-->
 <html class="no-js" lang="en">
     <head>
         <title>CSI3450 Website</title>

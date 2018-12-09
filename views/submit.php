@@ -1,4 +1,9 @@
 <?php
+/**
+ * submit.php
+ * This page loads whin a ser submits data for a listing. It queries the database by using the created 
+ * variables from the GET request with INSERT INTO queries.
+ */
  $servername = "localhost";
  $username = "root";
  $password = "root";
@@ -17,7 +22,7 @@
 //if the button with the name tag of button_add_listing (located in sell.php) is clicked,
 //then set these variables to the values that was grabbed from the databose from the GET method
  if(isset($_GET['button_add_listing'])) {
-    echo("check2");
+    echo("You have submitted a listing.");
     $htype_name = $_GET["htype_name"];
     $hstyle_name = $_GET['hstyle_name'];
     $street_num = $_GET["street_num"];
