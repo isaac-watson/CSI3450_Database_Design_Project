@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+    sell.php
+        The form for realtors to input a new listing into the database.
+-->
 <html class="no-js" lang="en">
     <head>
         <title>CSI3450 Website</title>
