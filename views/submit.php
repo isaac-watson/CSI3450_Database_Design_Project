@@ -1,7 +1,7 @@
 <?php
 /**
  * submit.php
- * This page loads whin a ser submits data for a listing. It queries the database by using the created 
+ * This page loads when a user submits data for a listing. It queries the database by using the created 
  * variables from the GET request with INSERT INTO queries.
  */
  $servername = "localhost";
@@ -20,7 +20,7 @@
 //var_dump($GLOBALS);
 
 //if the button with the name tag of button_add_listing (located in sell.php) is clicked,
-//then set these variables to the values that was grabbed from the databose from the GET method
+//then set these variables to the values that was grabbed from the database from the GET method
  if(isset($_GET['button_add_listing'])) {
     echo("You have submitted a listing.");
     $htype_name = $_GET["htype_name"];
